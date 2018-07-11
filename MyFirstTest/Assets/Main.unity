@@ -223,7 +223,7 @@ GameObject:
   m_Layer: 9
   m_Name: groundCheck
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -251,7 +251,7 @@ GameObject:
   m_Layer: 0
   m_Name: fireTransform
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -4087464717476244675, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -261,13 +261,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1586252737}
-  m_LocalRotation: {x: 0, y: 0, z: 0.30611074, w: 0.9519959}
-  m_LocalPosition: {x: -0.364, y: -0.079, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.500131, w: 0.86594975}
+  m_LocalPosition: {x: -0.36400008, y: -0.078999996, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1995756828}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 35.65}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 60.017002}
 --- !u!1 &1986825377
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,9 +486,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   facingRight: 1
   jump: 0
-  moveForce: 50
+  jumpTimeCounter: 0
+  jumpTime: 0.35
   maxSpeed: 4
-  jumpForce: 400
+  jumpForce: 6
   groundCheck: {fileID: 496604925}
   grounded: 0
 --- !u!114 &1995756830
@@ -504,4 +505,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Tp: {fileID: 50728204605465994, guid: 150a148500781eb48a9b7c512c2e5eaf, type: 2}
   m_FireTransform: {fileID: 1586252738}
-  m_LaunchForce: 2
+  m_LaunchForce: 5

@@ -5,10 +5,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     [HideInInspector] public bool facingRight = true;
-    [HideInInspector] public bool jump = false;
-    public float moveForce = 100f;
-    public float maxSpeed = 3f;
-    public float jumpForce = 200f;
+     public bool jump = false;
+
+    public float jumpTimeCounter;
+    public float jumpTime;
+
+    public float maxSpeed = 4f;
+    public float jumpForce = 5f;
     public Transform groundCheck;
 
 
@@ -28,39 +31,49 @@ public class PlayerController : MonoBehaviour {
         grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
 
         if (Input.GetButtonDown("Jump") && grounded)
-        {
+        {           
             jump = true;
+            jumpTimeCounter = jumpTime;
+        }
+
+        if(Input.GetButton("Jump") && jump)
+        {
+            if(jumpTimeCounter > 0)
+            {
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                jump = false;
+            }
+        }
+
+        if (Input.GetButtonUp("Jump"))
+        {
+            jump = false;
         }
     }
 
     void FixedUpdate()
     {
-        float h = Input.GetAxis("Horizontal");
-
-        if (h * rb2d.velocity.x < maxSpeed)
-            rb2d.AddForce(Vector2.right * h * moveForce);
-
-        if (Mathf.Abs(rb2d.velocity.x) > maxSpeed)
-            rb2d.velocity = new Vector2(Mathf.Sign(rb2d.velocity.x) * maxSpeed, rb2d.velocity.y);
-
-        if (h > 0 && !facingRight)
-            Flip();
-        else if (h < 0 && facingRight)
-            Flip();
-
         if (jump)
         {
-            rb2d.AddForce(new Vector2(0f, jumpForce));
-            jump = false;
+            rb2d.velocity = Vector2.up * jumpForce;
         }
-    }
 
+        float h = Input.GetAxis("Horizontal");
 
-    void Flip()
-    {
-        facingRight = !facingRight;
-        Vector3 theScale = transform.localScale;
-        theScale.x *= -1;
-        transform.localScale = theScale;
+        rb2d.velocity = new Vector2(h * maxSpeed, rb2d.velocity.y);
+
+        if (h > 0 && !facingRight)
+        {
+            facingRight = !facingRight;
+            transform.eulerAngles = new Vector3(0, 0, 0);
+        }
+        else if (h < 0 && facingRight)
+        {
+            facingRight = !facingRight;
+            transform.eulerAngles = new Vector3(0, 180, 0);
+        }
     }
 }
