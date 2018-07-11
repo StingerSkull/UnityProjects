@@ -5,17 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     [HideInInspector] public bool facingRight = true;
-     public bool jump = false;
+    [HideInInspector] public bool jump = false;
 
-    public float jumpTimeCounter;
-    public float jumpTime;
+    private float jumpTimeCounter;
+    private float jumpTime = 0.35f;
 
     public float maxSpeed = 4f;
     public float jumpForce = 5f;
     public Transform groundCheck;
 
 
-    public bool grounded = false;
+    private bool grounded = false;
     private Rigidbody2D rb2d;
 
 
