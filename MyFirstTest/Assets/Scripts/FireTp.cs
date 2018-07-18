@@ -8,8 +8,6 @@ public class FireTp : MonoBehaviour {
     public Rigidbody2D m_Tp;                   
     public Transform m_FireTransform;
 
-    public float m_LaunchForce = 30f;
-
     private string m_FireButton;                // The input axis that is used for launching shells.
     private string m_resetButton;
     private bool m_Fired;                       // Whether or not the shell has been launched with this button press.
@@ -67,15 +65,18 @@ public class FireTp : MonoBehaviour {
         m_Fired = true;
       
         Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 direction = new Vector2(posMouse.x - m_FireTransform.position.x, posMouse.y - m_FireTransform.position.y);
 
-        m_FireTransform.right = direction;
+        float deplacementX = posMouse.x - m_FireTransform.position.x;
+        float deplacementY = posMouse.y - m_FireTransform.position.y;
 
+        Vector2 velocityX = Vector2.right * deplacementX /(Mathf.Sqrt(-2 * deplacementY / Physics2D.gravity.y));
+        Vector2 velocityY = Vector2.up * Mathf.Sqrt(-2 * Physics2D.gravity.y * deplacementY);
+ 
         // Create an instance of the shell and store a reference to it's rigidbody.
         tpInstance = Instantiate (m_Tp, m_FireTransform.position, m_FireTransform.rotation) as Rigidbody2D;
 
         // Set the shell's velocity to the launch force in the fire position's forward direction.
-        tpInstance.velocity = m_LaunchForce * m_FireTransform.right;
+        tpInstance.velocity = velocityX + velocityY;
 
     }
 }
