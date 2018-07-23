@@ -7,6 +7,7 @@ public class FireTp : MonoBehaviour {
 
     public Rigidbody2D m_Tp;                   
     public Transform m_FireTransform;
+    public CircleCollider2D offsetCircleCollider;
 
     private string m_FireButton;                // The input axis that is used for launching shells.
     private string m_resetButton;
@@ -54,7 +55,7 @@ public class FireTp : MonoBehaviour {
     private void Tp()
     {
         m_Fired = false;
-        transform.SetPositionAndRotation(tpInstance.position, transform.rotation);
+        transform.position = tpInstance.position + new Vector2(0, offsetCircleCollider.radius * 2);
         rb2d.velocity = new Vector2(0, 0);
         Destroy(tpInstance.gameObject);
     }
