@@ -15,12 +15,13 @@ public class FireTp : MonoBehaviour {
 
     private Rigidbody2D tpInstance;
     private Rigidbody2D rb2d;
-
+    private Animator m_anim;
 
     // Use this for initialization
     void Awake()
     {
         rb2d = GetComponent<Rigidbody2D>();
+        m_anim = GetComponent<Animator>();
     }
 
     private void Start ()
@@ -64,7 +65,7 @@ public class FireTp : MonoBehaviour {
     {
         // Set the fired flag so only Fire is only called once.
         m_Fired = true;
-      
+        m_anim.SetTrigger("Fire");
         Vector2 posMouse = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
         float deplacementX = posMouse.x - m_FireTransform.position.x;
